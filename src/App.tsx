@@ -18,6 +18,7 @@ export const goodsFromServer = [
 ];
 
 enum SortType {
+  DEFAULT = '',
   SORT_ALPHABET = 'SORT_ALPHABET',
   SORT_LENGTH = 'SORT_LENGTH',
 }
@@ -52,9 +53,8 @@ function getSortGoods(goods: string[], { sortField, isReversed }: Props) {
 
 export const App: React.FC<Props> = () => {
   const [isReversed, setIsReversed] = useState(false);
-  const [sortField, setSortField] = useState<SortType | ''>('');
-
-  const visibleGoods = getSortGoods(goodsFromServer, { sortField: SortType.SORT_ALPHABET, isReversed });
+  const [sortField, setSortField] = useState<SortType>(SortType.DEFAULT);
+  const visibleGoods = getSortGoods(goodsFromServer, { sortField, isReversed });
 
   const reverse = () => setIsReversed(prevIsReversed => !prevIsReversed);
 
@@ -102,7 +102,7 @@ export const App: React.FC<Props> = () => {
               className="button is-danger is-light"
               onClick={() => {
                 setIsReversed(false);
-                setSortField('');
+                setSortField(SortType.DEFAULT);
               }}
             >
               Reset
