@@ -18,12 +18,12 @@ export const goodsFromServer = [
 ];
 
 enum SortType {
-  SORT_ALPHABET = 'SORT_ALPHABET ',
+  SORT_ALPHABET = 'SORT_ALPHABET',
   SORT_LENGTH = 'SORT_LENGTH',
 }
 
 type Props = {
-  sortField: string;
+  sortField: SortType;
   isReversed: boolean;
 };
 
@@ -52,8 +52,9 @@ function getSortGoods(goods: string[], { sortField, isReversed }: Props) {
 
 export const App: React.FC<Props> = () => {
   const [isReversed, setIsReversed] = useState(false);
-  const [sortField, setSortField] = useState('');
-  const visibleGoods = getSortGoods(goodsFromServer, { sortField, isReversed });
+  const [sortField, setSortField] = useState<SortType | ''>('');
+
+  const visibleGoods = getSortGoods(goodsFromServer, { sortField: SortType.SORT_ALPHABET, isReversed });
 
   const reverse = () => setIsReversed(prevIsReversed => !prevIsReversed);
 
